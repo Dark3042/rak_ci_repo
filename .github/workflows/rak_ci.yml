@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: Java Maven CI
 
 on:
   push:
@@ -13,16 +13,11 @@ jobs:
     - name: Клонирование репозитория
       uses: actions/checkout@v3
 
-    - name: Установка Node.js
-      uses: actions/setup-node@v3
+    - name: Установка JDK 17
+      uses: actions/setup-java@v3
       with:
-        node-version: '18'
+        java-version: '17'
+        distribution: 'temurin'
 
-    - name: Установка зависимостей
-      run: npm install
-
-    - name: Сборка проекта
-      run: npm run build
-
-    - name: Запуск unit-тестов
-      run: npm test
+    - name: Сборка проекта и запуск тестов
+      run: mvn clean install
